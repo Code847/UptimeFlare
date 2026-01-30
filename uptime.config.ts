@@ -1,4 +1,4 @@
-// This is a simplified example config file for quickstart  123
+// This is a simplified example config file for quickstart  123123
 // Some not frequently used features are omitted/commented out here
 // For a full-featured example, please refer to `uptime.config.full.ts`
 
