@@ -7,7 +7,7 @@ import { MaintenanceConfig, PageConfig, WorkerConfig } from './types/config'
 
 const pageConfig: PageConfig = {
   // Title for your status page
-  title: "Code847-ae",
+  title: "Code847-aesc",
   // Links shown at the header of your status page, could set `highlight` to `true`
   links: [
     { link: 'https://github.com/Code847', label: 'GitHub' },
@@ -24,7 +24,7 @@ const workerConfig: WorkerConfig = {
       // `id` should be unique, history will be kept if the `id` remains constant
       id: 'btmo.cn',
       // `name` is used at status page and callback message
-      name: 'My API Monitor',
+      name: 'My Web',
       // `method` should be a valid HTTP Method
       method: 'GET',
       // `target` is a valid URL
