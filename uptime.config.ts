@@ -11,7 +11,7 @@ const pageConfig: PageConfig = {
   // Links shown at the header of your status page, could set `highlight` to `true`
   links: [
     { link: 'https://github.com/Code847', label: 'GitHub' },
-    { link: 'https://github.com/Code847', label: 'Blog' },
+    { link: 'https://www.btmo.cn', label: 'Blog-WEB' },
     { link: 'mailto:316128933@qq.com', label: 'Email Me', highlight: true },
   ],
 }
@@ -22,7 +22,7 @@ const workerConfig: WorkerConfig = {
     // Example HTTP Monitor
     {
       // `id` should be unique, history will be kept if the `id` remains constant
-      id: 'Btmo.CN站点',
+      id: 'btmo',
       // `name` is used at status page and callback message
       name: '主站-Btmo.CN ',
       // `method` should be a valid HTTP Method
@@ -38,31 +38,16 @@ const workerConfig: WorkerConfig = {
       // [OPTIONAL] `timeout` in millisecond, if not specified, default to 10000
       timeout: 10000,
       // [OPTIONAL] headers to be sent
-      headers: {
-        'User-Agent': 'Uptimeflare',
-        Authorization: 'Bearer YOUR_TOKEN_HERE',
-      },
-      // [OPTIONAL] body to be sent (require POST/PUT/PATCH method)
-      // body: 'Hello, world!',
-      // [OPTIONAL] if specified, the response must contains the keyword to be considered as operational.
-      // responseKeyword: 'success',
-      // [OPTIONAL] if specified, the response must NOT contains the keyword to be considered as operational.
-      // responseForbiddenKeyword: 'bad gateway',
-      // [OPTIONAL] if specified, will call the check proxy to check the monitor, mainly for geo-specific checks
-      // refer to docs https://github.com/lyc8503/UptimeFlare/wiki/Check-proxy-setup before setting this value
-      // currently supports `worker://`, `globalping://` and `http(s)://` proxies
-      // checkProxy: 'worker://weur',
-      // [OPTIONAL] if true, the check will fallback to local if the specified proxy is down
-      // checkProxyFallback: true,
     },
 
     // 分割线
 
-        {
+    // Example HTTP Monitor
+    {
       // `id` should be unique, history will be kept if the `id` remains constant
-      id: 'cmsvod视频',
+      id: 'code847',
       // `name` is used at status page and callback message
-      name: 'cmsvod视频 ',
+      name: '主站-code847 ',
       // `method` should be a valid HTTP Method
       method: 'GET',
       // `target` is a valid URL
@@ -76,23 +61,13 @@ const workerConfig: WorkerConfig = {
       // [OPTIONAL] `timeout` in millisecond, if not specified, default to 10000
       timeout: 10000,
       // [OPTIONAL] headers to be sent
-      headers: {
-        'User-Agent': 'Uptimeflare',
-        Authorization: 'Bearer YOUR_TOKEN_HERE',
-      },
-      // [OPTIONAL] body to be sent (require POST/PUT/PATCH method)
-      // body: 'Hello, world!',
-      // [OPTIONAL] if specified, the response must contains the keyword to be considered as operational.
-      // responseKeyword: 'success',
-      // [OPTIONAL] if specified, the response must NOT contains the keyword to be considered as operational.
-      // responseForbiddenKeyword: 'bad gateway',
-      // [OPTIONAL] if specified, will call the check proxy to check the monitor, mainly for geo-specific checks
-      // refer to docs https://github.com/lyc8503/UptimeFlare/wiki/Check-proxy-setup before setting this value
-      // currently supports `worker://`, `globalping://` and `http(s)://` proxies
-      // checkProxy: 'worker://weur',
-      // [OPTIONAL] if true, the check will fallback to local if the specified proxy is down
-      // checkProxyFallback: true,
     },
+
+
+
+
+
+    
     // Example TCP Monitor
     {
       id: 'test_tcp_monitor',
