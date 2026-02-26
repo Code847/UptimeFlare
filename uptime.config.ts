@@ -25,7 +25,7 @@ const pageConfig: PageConfig = {
     // [OPTIONAL] The color of upcoming maintenance alerts, default to 'gray'
     // Active alerts will always use the color specified in the MaintenanceConfig
     upcomingColor: 'gray',
-  },
+  }
   // [OPTIONAL] Custom footer html
   // customFooter: '',
 }
