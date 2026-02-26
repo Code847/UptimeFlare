@@ -1,21 +1,22 @@
-// This is a simplified example config file for quickstart
-// Some not frequently used features are omitted/commented out here
-// For a full-featured example, please refer to `uptime.config.full.ts`
 
-// Don't edit this line
 import { MaintenanceConfig, PageConfig, WorkerConfig } from './types/config'
 
 const pageConfig: PageConfig = {
   // Title for your status page
-  title: "Code847 - Test",
+  title: "lyc8503's Status Page",
   // Links shown at the header of your status page, could set `highlight` to `true`
   links: [
     { link: 'https://github.com/Code847', label: 'GitHub' },
-    { link: 'https://www.btmo.cn', label: 'Blog-WEB' },
-    { link: 'mailto:316128933@qq.com', label: 'Email Me', highlight: true },
+    { link: 'https://www.btmo.cn', label: 'Blog' },
+    { link: 'mailto:zhanghu-sos@qq.com', label: 'Email Me', highlight: true },
   ],
-}
-
+  // [OPTIONAL] Group your monitors
+  // If not specified, all monitors will be shown in a single list
+  // If specified, monitors will be grouped and ordered, not-listed monitors will be invisble (but still monitored)
+  group: {
+    '🌐 Public (example group name)': ['foo_monitor', 'bar_monitor', 'more monitor ids...'],
+    '🔐 Private': ['test_tcp_monitor'],
+  },
   // [OPTIONAL] Set the path to your favicon, default to '/favicon.png' if not specified
   // favicon: 'https://example.com/favicon.ico',
   // [OPTIONAL] Set the path to your logo, default to '/logo.svg' if not specified
@@ -25,7 +26,7 @@ const pageConfig: PageConfig = {
     // [OPTIONAL] The color of upcoming maintenance alerts, default to 'gray'
     // Active alerts will always use the color specified in the MaintenanceConfig
     upcomingColor: 'gray',
-  }
+  },
   // [OPTIONAL] Custom footer html
   // customFooter: '',
 }
@@ -42,7 +43,7 @@ const workerConfig: WorkerConfig = {
       // `id` should be unique, history will be kept if the `id` remains constant
       id: 'btmo.cn',
       // `name` is used at status page and callback message
-      name: '主网站',
+      name: 'My Web Btmo.cnr',
       // `method` should be a valid HTTP Method
       method: 'POST',
       // `target` is a valid URL
@@ -75,50 +76,10 @@ const workerConfig: WorkerConfig = {
       // [OPTIONAL] if true, the check will fallback to local if the specified proxy is down
       checkProxyFallback: true,
     },
-    // 分割线
- // Example HTTP Monitor
-    {
-      // `id` should be unique, history will be kept if the `id` remains constant
-      id: 'ZXB-01',
-      // `name` is used at status page and callback message
-      name: '主网站2',
-      // `method` should be a valid HTTP Method
-      method: 'POST',
-      // `target` is a valid URL
-      target: 'https://www.btmo.cn',
-      // [OPTIONAL] `tooltip` is ONLY used at status page to show a tooltip
-      tooltip: 'This is a tooltip for this monitor',
-      // [OPTIONAL] `statusPageLink` is ONLY used for clickable link at status page
-      statusPageLink: 'https://www.btmo.cn',
-      // [OPTIONAL] `hideLatencyChart` will hide status page latency chart if set to true
-      hideLatencyChart: false,
-      // [OPTIONAL] `expectedCodes` is an array of acceptable HTTP response codes, if not specified, default to 2xx
-      expectedCodes: [200],
-      // [OPTIONAL] `timeout` in millisecond, if not specified, default to 10000
-      timeout: 10000,
-      // [OPTIONAL] headers to be sent
-      headers: {
-        'User-Agent': 'Uptimeflare',
-        Authorization: 'Bearer YOUR_TOKEN_HERE',
-      },
-      // [OPTIONAL] body to be sent
-      body: 'Hello, world!',
-      // [OPTIONAL] if specified, the response must contains the keyword to be considered as operational.
-      responseKeyword: 'success',
-      // [OPTIONAL] if specified, the response must NOT contains the keyword to be considered as operational.
-      responseForbiddenKeyword: 'bad gateway',
-      // [OPTIONAL] if specified, will call the check proxy to check the monitor, mainly for geo-specific checks
-      // refer to docs https://github.com/lyc8503/UptimeFlare/wiki/Check-proxy-setup before setting this value
-      // currently supports `worker://`, `globalping://` and `http(s)://` proxies
-      checkProxy: 'https://xxx.example.com OR worker://weur',
-      // [OPTIONAL] if true, the check will fallback to local if the specified proxy is down
-      checkProxyFallback: true,
-    },
-    // 分割线
     // Example TCP Monitor
     {
-      id: 'VPN_TCP_PING-DE',
-      name: 'TCP_pingr',
+      id: 'test_tcp_monitor',
+      name: 'Example TCP Monitor',
       // `method` should be `TCP_PING` for tcp monitors
       method: 'TCP_PING',
       // `target` should be `host:port` for tcp monitors
