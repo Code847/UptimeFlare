@@ -64,11 +64,11 @@ const workerConfig: WorkerConfig = {
       // `method` should be a valid HTTP Method
       method: 'GET',
       // `target` is a valid URL
-      target: 'https://zxb.peopledigital.com.cn/show/2379-446635.html',
+      target: 'https://cmsimg.peopledigital.com.cn/2026/02/26/da78b90c-835a-478e-9a10-b2d4964e7daa.png',
       // [OPTIONAL] `tooltip` is ONLY used at status page to show a tooltip
       tooltip: 'This is a tooltip for this monitor',
       // [OPTIONAL] `statusPageLink` is ONLY used for clickable link at status page
-      statusPageLink: 'https://zxb.peopledigital.com.cn/show/2379-446635.html',
+      statusPageLink: 'https://cmsimg.peopledigital.com.cn/2026/02/26/da78b90c-835a-478e-9a10-b2d4964e7daa.png',
       // [OPTIONAL] `expectedCodes` is an array of acceptable HTTP response codes, if not specified, default to 2xx
       expectedCodes: [200],
       // [OPTIONAL] `timeout` in millisecond, if not specified, default to 10000
