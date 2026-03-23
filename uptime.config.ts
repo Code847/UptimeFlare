@@ -288,7 +288,7 @@ const workerConfig: WorkerConfig = {
       // `method` should be `TCP_PING` for tcp monitors
       method: 'TCP_PING',
       // `target` should be `host:port` for tcp monitors
-      target: '144.76.97.102:10120',
+      target: 'BTMO.CN',
       tooltip: 'My production server SSH',
       statusPageLink: 'https://www.btmo.cn',
       timeout: 5000,
