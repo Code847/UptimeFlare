@@ -5,6 +5,7 @@ import { getColor } from '@/util/color'
 import { maintenances } from '@/uptime.config'
 import MonitorDetail from './MonitorDetail'
 import DetailBar from './DetailBar'
+import DetailChart from './DetailChart'
 import { useTranslation } from 'react-i18next'
 
 function StatusDot({ color, label }: { color: string; label: string }) {
@@ -161,9 +162,16 @@ export default function MonitorCard({
         {state.latency[monitor.id] && (
           <div
             onClick={(e) => e.stopPropagation()}
-            style={{ marginTop: 2, marginBottom: -4 }}
+            style={{ marginTop: 2, marginBottom: 2 }}
           >
             <DetailBar monitor={monitor} state={state} compact />
+          </div>
+        )}
+
+        {/* Compact latency sparkline */}
+        {!monitor.hideLatencyChart && state.latency[monitor.id] && (
+          <div onClick={(e) => e.stopPropagation()}>
+            <DetailChart monitor={monitor} state={state} compact />
           </div>
         )}
       </Card>

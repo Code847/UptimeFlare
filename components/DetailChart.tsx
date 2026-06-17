@@ -29,9 +29,11 @@ ChartJS.register(
 export default function DetailChart({
   monitor,
   state,
+  compact,
 }: {
   monitor: MonitorTarget
   state: MonitorState
+  compact?: boolean
 }) {
   const { t } = useTranslation('common')
   const latencyData = state.latency[monitor.id].map((point) => ({
@@ -46,10 +48,10 @@ export default function DetailChart({
       {
         data: latencyData,
         borderColor: 'rgba(0, 240, 255, 0.8)',
-        borderWidth: 2,
+        borderWidth: compact ? 1.5 : 2,
         radius: 0,
         pointRadius: 0,
-        pointHoverRadius: 4,
+        pointHoverRadius: compact ? 2 : 4,
         pointHoverBackgroundColor: '#00f0ff',
         pointHoverBorderColor: '#00f0ff',
         cubicInterpolationMode: 'monotone' as const,
@@ -84,7 +86,7 @@ export default function DetailChart({
         display: false,
       },
       title: {
-        display: true,
+        display: !compact,
         text: t('Response times'),
         align: 'start' as const,
       },
@@ -103,7 +105,7 @@ export default function DetailChart({
           color: '#64748b',
           font: {
             family: 'JetBrains Mono, monospace',
-            size: 10,
+            size: compact ? 8 : 10,
           },
         },
       },
@@ -116,7 +118,7 @@ export default function DetailChart({
           color: '#64748b',
           font: {
             family: 'JetBrains Mono, monospace',
-            size: 10,
+            size: compact ? 8 : 10,
           },
           callback: (value: string | number) => `${value}ms`,
         },
@@ -125,7 +127,7 @@ export default function DetailChart({
   }
 
   return (
-    <div style={{ height: '150px' }}>
+    <div style={{ height: compact ? '70px' : '150px' }}>
       <Line options={options} data={data} />
     </div>
   )
