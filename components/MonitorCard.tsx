@@ -178,7 +178,6 @@ export default function MonitorCard({
           },
           close: {
             color: '#64748b',
-            '&:hover': { color: '#00f0ff' },
           },
         }}
       >
