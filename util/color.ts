@@ -1,6 +1,3 @@
-import { MonitorState, MonitorTarget } from '@/types/config'
-import { getColor } from '@/util/color'
-
 function getColor(percent: number | string, darker: boolean): string {
   percent = Number(percent)
   // Sci-Tech cyan theme color mapping
