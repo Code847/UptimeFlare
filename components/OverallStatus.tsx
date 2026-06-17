@@ -114,11 +114,8 @@ export default function OverallStatus({
 
   return (
     <Container size="lg" mt="md" mb="xs">
-      <Center>
-        <StatusIcon type={iconType} />
-      </Center>
       <Title
-        mt="sm"
+        mt={0}
         style={{
           textAlign: 'center',
           background: iconType === 'ok'
