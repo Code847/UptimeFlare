@@ -113,7 +113,7 @@ export default function OverallStatus({
     }))
 
   return (
-    <Container size="md" mt="xl">
+    <Container size="lg" mt="md" mb="xs">
       <Center>
         <StatusIcon type={iconType} />
       </Center>
@@ -138,12 +138,12 @@ export default function OverallStatus({
         {statusString}
       </Title>
       <Title
-        mt="sm"
+        mt={4}
         style={{
           textAlign: 'center',
           color: '#64748b',
           fontFamily: 'JetBrains Mono, Fira Code, monospace',
-          fontSize: '0.8rem',
+          fontSize: '0.75rem',
           fontWeight: 400,
           letterSpacing: '0.05em',
         }}
