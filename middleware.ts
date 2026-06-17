@@ -3,6 +3,11 @@ import type { NextRequest } from 'next/server'
 import { workerConfig } from './uptime.config'
 
 export async function middleware(request: NextRequest) {
+  // Always allow API routes (needed for ISR build-time fetch)
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    return NextResponse.next()
+  }
+
   const passwordProtection = workerConfig.passwordProtection
   if (passwordProtection) {
     const authHeader = request.headers.get('Authorization')
@@ -24,4 +29,6 @@ export async function middleware(request: NextRequest) {
       )
     }
   }
+
+  return NextResponse.next()
 }

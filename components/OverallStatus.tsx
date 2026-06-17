@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import MaintenanceAlert from './MaintenanceAlert'
 import { useTranslation } from 'react-i18next'
 
-
 function useWindowVisibility() {
   const [isVisible, setIsVisible] = useState(true)
   useEffect(() => {
