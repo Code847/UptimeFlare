@@ -1,6 +1,6 @@
 import { MonitorState, MonitorTarget } from '@/types/config'
-import { Accordion, Card, Center, Text } from '@mantine/core'
-import MonitorDetail from './MonitorDetail'
+import { Accordion, Center, Text } from '@mantine/core'
+import MonitorCard from './MonitorCard'
 import { pageConfig } from '@/uptime.config'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,25 +8,17 @@ import { useTranslation } from 'react-i18next'
 function countDownCount(state: MonitorState, ids: string[]) {
   let downCount = 0
   for (let id of ids) {
-    if (state.incident[id] === undefined || state.incident[id].length === 0) {
-      continue
-    }
-    if (state.incident[id].slice(-1)[0].end === null) {
-      downCount++
-    }
+    if (state.incident[id] === undefined || state.incident[id].length === 0) continue
+    if (state.incident[id].slice(-1)[0].end === null) downCount++
   }
   return downCount
 }
 
 function getStatusTextColor(state: MonitorState, ids: string[]) {
-  let downCount = countDownCount(state, ids)
-  if (downCount === 0) {
-    return '#00f0ff'
-  } else if (downCount === ids.length) {
-    return '#f43f5e'
-  } else {
-    return '#f59e0b'
-  }
+  const downCount = countDownCount(state, ids)
+  if (downCount === 0) return '#00f0ff'
+  if (downCount === ids.length) return '#f43f5e'
+  return '#f59e0b'
 }
 
 export default function MonitorList({
@@ -39,9 +31,9 @@ export default function MonitorList({
   const { t } = useTranslation('common')
   const group = pageConfig.group
   const groupedMonitor = group && Object.keys(group).length > 0
-  let content
 
-  const savedExpandedGroups = localStorage.getItem('expandedGroups')
+  const savedExpandedGroups =
+    typeof window !== 'undefined' ? localStorage.getItem('expandedGroups') : null
   const expandedInitial = savedExpandedGroups
     ? JSON.parse(savedExpandedGroups)
     : Object.keys(group || {})
@@ -49,6 +41,14 @@ export default function MonitorList({
   useEffect(() => {
     localStorage.setItem('expandedGroups', JSON.stringify(expandedGroups))
   }, [expandedGroups])
+
+  const gridStyle: React.CSSProperties = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+    gap: '12px',
+  }
+
+  let content
 
   if (groupedMonitor) {
     content = (
@@ -88,51 +88,43 @@ export default function MonitorList({
               </div>
             </Accordion.Control>
             <Accordion.Panel>
-              {monitors
-                .filter((monitor) => group[groupName].includes(monitor.id))
-                .sort((a, b) => group[groupName].indexOf(a.id) - group[groupName].indexOf(b.id))
-                .map((monitor) => (
-                  <div key={monitor.id}>
-                    <Card.Section ml="xs" mr="xs">
-                      <MonitorDetail monitor={monitor} state={state} />
-                    </Card.Section>
-                  </div>
-                ))}
+              <div style={gridStyle}>
+                {monitors
+                  .filter((monitor) => group[groupName].includes(monitor.id))
+                  .sort(
+                    (a, b) =>
+                      group[groupName].indexOf(a.id) - group[groupName].indexOf(b.id)
+                  )
+                  .map((monitor, idx) => (
+                    <MonitorCard key={monitor.id} monitor={monitor} state={state} index={idx} />
+                  ))}
+              </div>
             </Accordion.Panel>
           </Accordion.Item>
         ))}
       </Accordion>
     )
   } else {
-    content = monitors.map((monitor) => (
-      <div key={monitor.id}>
-        <Card.Section ml="xs" mr="xs">
-          <MonitorDetail monitor={monitor} state={state} />
-        </Card.Section>
+    content = (
+      <div style={gridStyle}>
+        {monitors.map((monitor, idx) => (
+          <MonitorCard key={monitor.id} monitor={monitor} state={state} index={idx} />
+        ))}
       </div>
-    ))
+    )
   }
 
   return (
     <Center>
-      <Card
-        shadow="sm"
-        padding="lg"
-        radius="md"
-        ml="md"
-        mr="md"
-        mt="xl"
-        mb="xl"
-        withBorder={!groupedMonitor}
+      <div
         style={{
-          width: groupedMonitor ? '897px' : '865px',
-          background: 'rgba(15, 23, 42, 0.85)',
-          border: '1px solid rgba(0, 240, 255, 0.12)',
-          backdropFilter: 'blur(12px)',
+          width: 'min(1200px, 96vw)',
+          margin: '24px auto 32px auto',
+          padding: '0 12px',
         }}
       >
         {content}
-      </Card>
+      </div>
     </Center>
   )
 }

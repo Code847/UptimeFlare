@@ -1,9 +1,8 @@
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { Center, Container, Title, Collapse, Button, Box } from '@mantine/core'
-import { IconCircleCheck, IconAlertCircle, IconPlus, IconMinus, IconCircle, IconBolt } from '@tabler/icons-react'
+import { Center, Container, Title, Collapse } from '@mantine/core'
+import { IconCircleCheck, IconAlertCircle, IconCircle, IconBolt } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import MaintenanceAlert from './MaintenanceAlert'
-import { pageConfig } from '@/uptime.config'
 import { useTranslation } from 'react-i18next'
 
 function useWindowVisibility() {
@@ -52,8 +51,6 @@ export default function OverallStatus({
   monitors: MonitorTarget[]
 }) {
   const { t } = useTranslation('common')
-  let group = pageConfig.group
-  let groupedMonitor = (group && Object.keys(group).length > 0) || false
 
   let statusString = ''
   let iconType: 'ok' | 'down' | 'partial' | 'unknown' = 'ok'
@@ -190,7 +187,7 @@ export default function OverallStatus({
               <MaintenanceAlert
                 key={`upcoming-${idx}`}
                 maintenance={maintenance}
-                style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+                style={{ width: 'min(1200px, 96vw)' }}
                 upcoming
               />
             ))}
@@ -203,7 +200,7 @@ export default function OverallStatus({
         <MaintenanceAlert
           key={`active-${idx}`}
           maintenance={maintenance}
-          style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+          style={{ width: 'min(1200px, 96vw)' }}
         />
       ))}
     </Container>
