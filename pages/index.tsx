@@ -86,7 +86,7 @@ export async function getStaticProps() {
       new Promise<null>((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000)),
     ])
     if (res && res.ok) {
-      const data = await res.json()
+      const data = await res.json() as { lastUpdate: number; up: number; down: number }
       // Build compacted state from API response
       const { lastUpdate, up, down } = data
       compactedStateStr = JSON.stringify({
