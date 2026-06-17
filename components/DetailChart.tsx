@@ -1,3 +1,4 @@
+import React from 'react'
 import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -26,7 +27,7 @@ ChartJS.register(
   TimeScale
 )
 
-export default function DetailChart({
+export default React.memo(function DetailChart({
   monitor,
   state,
   compact,
@@ -131,4 +132,4 @@ export default function DetailChart({
       <Line options={options} data={data} />
     </div>
   )
-}
+})

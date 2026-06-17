@@ -1,3 +1,4 @@
+import React from 'react'
 import { MonitorState, MonitorTarget } from '@/types/config'
 import { getColor } from '@/util/color'
 import { Box, Tooltip, Modal } from '@mantine/core'
@@ -7,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 const moment = require('moment')
 require('moment-precise-range-plugin')
 
-export default function DetailBar({
+export default React.memo(function DetailBar({
   monitor,
   state,
   compact,
@@ -167,4 +168,4 @@ export default function DetailBar({
       </Box>
     </>
   )
-}
+})

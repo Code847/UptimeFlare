@@ -1,6 +1,5 @@
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { Center, Container, Title, Collapse } from '@mantine/core'
-import { IconCircleCheck, IconAlertCircle, IconCircle, IconBolt } from '@tabler/icons-react'
+import { Container, Title, Collapse } from '@mantine/core'
 import { useEffect, useState } from 'react'
 import MaintenanceAlert from './MaintenanceAlert'
 import { useTranslation } from 'react-i18next'
@@ -13,32 +12,6 @@ function useWindowVisibility() {
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
   }, [])
   return isVisible
-}
-
-function StatusIcon({ type }: { type: 'ok' | 'down' | 'partial' | 'unknown' }) {
-  const config = {
-    ok:      { icon: <IconCircleCheck size={64} />, color: '#00f0ff', glow: '0 0 30px rgba(0,240,255,0.4), 0 0 80px rgba(0,240,255,0.15)' },
-    down:    { icon: <IconAlertCircle size={64} />, color: '#f43f5e', glow: '0 0 30px rgba(244,63,94,0.4), 0 0 80px rgba(244,63,94,0.15)' },
-    partial: { icon: <IconCircle size={64} />, color: '#f59e0b', glow: '0 0 30px rgba(245,158,11,0.4), 0 0 80px rgba(245,158,11,0.15)' },
-    unknown: { icon: <IconBolt size={64} />, color: '#94a3b8', glow: '0 0 20px rgba(148,163,184,0.2)' },
-  }
-  const c = config[type]
-  return (
-    <div style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 100,
-      height: 100,
-      borderRadius: '50%',
-      background: `radial-gradient(circle, ${c.color}15 0%, transparent 70%)`,
-      border: `2px solid ${c.color}40`,
-      boxShadow: c.glow,
-      animation: 'pulse 3s ease-in-out infinite',
-    }}>
-      <span style={{ color: c.color }}>{c.icon}</span>
-    </div>
-  )
 }
 
 export default function OverallStatus({

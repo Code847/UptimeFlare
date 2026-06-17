@@ -1,3 +1,4 @@
+import React from 'react'
 import { MonitorState, MonitorTarget } from '@/types/config'
 import { Card, Modal, Text, Tooltip } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
@@ -26,7 +27,7 @@ function StatusDot({ color, label }: { color: string; label: string }) {
   )
 }
 
-export default function MonitorCard({
+const MonitorCard = React.memo(function MonitorCard({
   monitor,
   state,
   index = 0,
@@ -204,4 +205,6 @@ export default function MonitorCard({
       </Modal>
     </>
   )
-}
+})
+
+export default MonitorCard
