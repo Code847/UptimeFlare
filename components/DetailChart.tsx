@@ -118,7 +118,7 @@ export default function DetailChart({
             family: 'JetBrains Mono, monospace',
             size: 10,
           },
-          callback: (value: string) => `${value}ms`,
+          callback: (value: string | number) => `${value}ms`,
         },
       },
     },
