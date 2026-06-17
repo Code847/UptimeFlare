@@ -44,7 +44,7 @@ export default function MonitorList({
 
   const gridStyle: React.CSSProperties = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(3, 1fr)',
     gap: '12px',
   }
 
@@ -118,7 +118,7 @@ export default function MonitorList({
     <Center>
       <div
         style={{
-          width: 'min(1600px, 98vw)',
+          width: 'min(1400px, 98vw)',
           margin: '8px auto 24px auto',
           padding: '0 12px',
         }}
