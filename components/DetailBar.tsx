@@ -10,9 +10,11 @@ require('moment-precise-range-plugin')
 export default function DetailBar({
   monitor,
   state,
+  compact,
 }: {
   monitor: MonitorTarget
   state: MonitorState
+  compact?: boolean
 }) {
   const { t } = useTranslation('common')
   const [barRef, barRect] = useResizeObserver()
@@ -103,20 +105,20 @@ export default function DetailBar({
       >
         <div
           style={{
-            height: '22px',
-            width: '7px',
+            height: compact ? '14px' : '22px',
+            width: compact ? '5px' : '7px',
             background: getColor(dayPercent, false),
-            borderRadius: '3px',
-            marginLeft: '1px',
-            marginRight: '1px',
-            boxShadow: `0 0 6px ${getColor(dayPercent, false)}50`,
+            borderRadius: compact ? '2px' : '3px',
+            marginLeft: compact ? '1px' : '1px',
+            marginRight: compact ? '1px' : '1px',
+            boxShadow: `0 0 ${compact ? '3px' : '6px'} ${getColor(dayPercent, false)}50`,
             transition: 'box-shadow 0.2s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = `0 0 12px ${getColor(dayPercent, false)}80`
+            e.currentTarget.style.boxShadow = `0 0 ${compact ? '6px' : '12px'} ${getColor(dayPercent, false)}80`
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = `0 0 6px ${getColor(dayPercent, false)}50`
+            e.currentTarget.style.boxShadow = `0 0 ${compact ? '3px' : '6px'} ${getColor(dayPercent, false)}50`
           }}
           onClick={() => {
             if (dayDownTime > 0) {
@@ -155,8 +157,8 @@ export default function DetailBar({
         style={{
           display: 'flex',
           flexWrap: 'nowrap',
-          marginTop: '10px',
-          marginBottom: '5px',
+          marginTop: compact ? '2px' : '10px',
+          marginBottom: compact ? '2px' : '5px',
         }}
         visibleFrom="540"
         ref={barRef}

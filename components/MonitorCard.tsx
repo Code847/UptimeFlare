@@ -4,6 +4,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { getColor } from '@/util/color'
 import { maintenances } from '@/uptime.config'
 import MonitorDetail from './MonitorDetail'
+import DetailBar from './DetailBar'
 import { useTranslation } from 'react-i18next'
 
 function StatusDot({ color, label }: { color: string; label: string }) {
@@ -155,6 +156,16 @@ export default function MonitorCard({
             {hasData ? `${uptimePercent}%` : '—'}
           </Text>
         </div>
+
+        {/* Mini 90-day bar */}
+        {state.latency[monitor.id] && (
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{ marginTop: 2, marginBottom: -4 }}
+          >
+            <DetailBar monitor={monitor} state={state} compact />
+          </div>
+        )}
       </Card>
 
       <Modal
