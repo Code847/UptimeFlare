@@ -20,30 +20,39 @@ export default function MaintenanceAlert({
 
   return (
     <Alert
-      icon={<IconAlertTriangle />}
+      icon={<IconAlertTriangle color="#f59e0b" />}
       title={
         <span
           style={{
             fontSize: '1rem',
             fontWeight: 700,
+            color: upcoming ? '#94a3b8' : '#f59e0b',
           }}
         >
           {(upcoming ? t('Upcoming') : '') + (maintenance.title || t('Scheduled Maintenance'))}
         </span>
       }
-      color={
-        upcoming ? pageConfig.maintenances?.upcomingColor ?? 'gray' : maintenance.color || 'yellow'
-      }
+      variant="transparent"
       withCloseButton={false}
-      style={{ margin: '16px auto 0 auto', ...style }}
+      style={{
+        margin: '16px auto 0 auto',
+        background: upcoming ? 'rgba(148, 163, 184, 0.05)' : 'rgba(245, 158, 11, 0.05)',
+        border: upcoming
+          ? '1px solid rgba(148, 163, 184, 0.2)'
+          : '1px solid rgba(245, 158, 11, 0.2)',
+        borderRadius: '12px',
+        ...style,
+      }}
     >
       {/* Date range in top right (desktop) or inline (mobile) */}
       <div
         style={{
           ...{
             top: 10,
-            fontSize: '0.85rem',
+            fontSize: '0.8rem',
             borderRadius: 6,
+            color: '#94a3b8',
+            fontFamily: 'JetBrains Mono, monospace',
           },
           ...(isDesktop
             ? {
@@ -62,11 +71,11 @@ export default function MaintenanceAlert({
             gridColumnGap: '3px',
           }}
         >
-          <div style={{ textAlign: 'right', fontWeight: 'bold' }}>
+          <div style={{ textAlign: 'right', fontWeight: 'bold', color: '#cbd5e1' }}>
             {upcoming ? t('Scheduled for') : t('From')}
           </div>
           <div>{new Date(maintenance.start).toLocaleString()}</div>
-          <div style={{ textAlign: 'right', fontWeight: 'bold' }}>
+          <div style={{ textAlign: 'right', fontWeight: 'bold', color: '#cbd5e1' }}>
             {upcoming ? t('Expected end') : t('To')}
           </div>
           <div>
@@ -77,7 +86,7 @@ export default function MaintenanceAlert({
         </div>
       </div>
 
-      <Text style={{ paddingTop: '3px', whiteSpace: 'pre-line' }}>{maintenance.body}</Text>
+      <Text style={{ paddingTop: '3px', whiteSpace: 'pre-line', color: '#94a3b8' }}>{maintenance.body}</Text>
       {maintenance.monitors && maintenance.monitors.length > 0 && (
         <>
           <Text mt="xs">

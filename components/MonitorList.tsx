@@ -11,7 +11,6 @@ function countDownCount(state: MonitorState, ids: string[]) {
     if (state.incident[id] === undefined || state.incident[id].length === 0) {
       continue
     }
-
     if (state.incident[id].slice(-1)[0].end === null) {
       downCount++
     }
@@ -22,11 +21,11 @@ function countDownCount(state: MonitorState, ids: string[]) {
 function getStatusTextColor(state: MonitorState, ids: string[]) {
   let downCount = countDownCount(state, ids)
   if (downCount === 0) {
-    return '#059669'
+    return '#00f0ff'
   } else if (downCount === ids.length) {
-    return '#df484a'
+    return '#f43f5e'
   } else {
-    return '#f29030'
+    return '#f59e0b'
   }
 }
 
@@ -42,7 +41,6 @@ export default function MonitorList({
   const groupedMonitor = group && Object.keys(group).length > 0
   let content
 
-  // Load expanded groups from localStorage
   const savedExpandedGroups = localStorage.getItem('expandedGroups')
   const expandedInitial = savedExpandedGroups
     ? JSON.parse(savedExpandedGroups)
@@ -53,7 +51,6 @@ export default function MonitorList({
   }, [expandedGroups])
 
   if (groupedMonitor) {
-    // Grouped monitors
     content = (
       <Accordion
         multiple
@@ -73,13 +70,16 @@ export default function MonitorList({
                   alignItems: 'center',
                 }}
               >
-                <div>{groupName}</div>
+                <div style={{ fontWeight: 600 }}>{groupName}</div>
                 <Text
-                  fw={500}
+                  fw={600}
                   style={{
                     display: 'inline',
                     paddingRight: '5px',
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontSize: '0.85rem',
                     color: getStatusTextColor(state, group[groupName]),
+                    textShadow: `0 0 8px ${getStatusTextColor(state, group[groupName])}40`,
                   }}
                 >
                   {group[groupName].length - countDownCount(state, group[groupName])}/
@@ -104,7 +104,6 @@ export default function MonitorList({
       </Accordion>
     )
   } else {
-    // Ungrouped monitors
     content = monitors.map((monitor) => (
       <div key={monitor.id}>
         <Card.Section ml="xs" mr="xs">
@@ -123,8 +122,14 @@ export default function MonitorList({
         ml="md"
         mr="md"
         mt="xl"
+        mb="xl"
         withBorder={!groupedMonitor}
-        style={{ width: groupedMonitor ? '897px' : '865px' }}
+        style={{
+          width: groupedMonitor ? '897px' : '865px',
+          background: 'rgba(15, 23, 42, 0.85)',
+          border: '1px solid rgba(0, 240, 255, 0.12)',
+          backdropFilter: 'blur(12px)',
+        }}
       >
         {content}
       </Card>

@@ -103,12 +103,20 @@ export default function DetailBar({
       >
         <div
           style={{
-            height: '20px',
+            height: '22px',
             width: '7px',
             background: getColor(dayPercent, false),
-            borderRadius: '2px',
+            borderRadius: '3px',
             marginLeft: '1px',
             marginRight: '1px',
+            boxShadow: `0 0 6px ${getColor(dayPercent, false)}50`,
+            transition: 'box-shadow 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow = `0 0 12px ${getColor(dayPercent, false)}80`
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = `0 0 6px ${getColor(dayPercent, false)}50`
           }}
           onClick={() => {
             if (dayDownTime > 0) {

@@ -7,6 +7,27 @@ import { getColor } from '@/util/color'
 import { maintenances } from '@/uptime.config'
 import { useTranslation } from 'react-i18next'
 
+function StatusDot({ color, label }: { color: string; label: string }) {
+  return (
+    <Tooltip label={label} withArrow>
+      <span
+        style={{
+          display: 'inline-block',
+          width: 12,
+          height: 12,
+          borderRadius: '50%',
+          background: color,
+          marginRight: '6px',
+          boxShadow: `0 0 8px ${color}, 0 0 20px ${color}40`,
+          animation: 'pulse 2.5s ease-in-out infinite',
+          verticalAlign: 'middle',
+          flexShrink: 0,
+        }}
+      />
+    </Tooltip>
+  )
+}
+
 export default function MonitorDetail({
   monitor,
   state,
@@ -19,42 +40,32 @@ export default function MonitorDetail({
   if (!state.latency[monitor.id])
     return (
       <>
-        <Text mt="sm" fw={700}>
+        <Text mt="sm" fw={700} style={{ color: '#94a3b8' }}>
           {monitor.name}
         </Text>
-        <Text mt="sm" fw={700}>
+        <Text mt="sm" fw={500} style={{ color: '#475569', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.85rem' }}>
           {t('No data available')}
         </Text>
       </>
     )
 
-  let statusIcon =
-    state.incident[monitor.id].slice(-1)[0].end === null ? (
-      <IconAlertCircle
-        style={{ width: '1.25em', height: '1.25em', color: '#b91c1c', marginRight: '3px' }}
-      />
-    ) : (
-      <IconCircleCheck
-        style={{ width: '1.25em', height: '1.25em', color: '#059669', marginRight: '3px' }}
-      />
-    )
+  const isDown = state.incident[monitor.id].slice(-1)[0].end === null
 
   // Hide real status icon if monitor is in maintenance
   const now = new Date()
   const hasMaintenance = maintenances
     .filter((m) => now >= new Date(m.start) && (!m.end || now <= new Date(m.end)))
     .find((maintenance) => maintenance.monitors?.includes(monitor.id))
-  if (hasMaintenance)
-    statusIcon = (
-      <IconAlertTriangle
-        style={{
-          width: '1.25em',
-          height: '1.25em',
-          color: '#fab005',
-          marginRight: '3px',
-        }}
-      />
-    )
+
+  let dotColor = '#00f0ff'
+  let dotLabel = 'Operational'
+  if (hasMaintenance) {
+    dotColor = '#f59e0b'
+    dotLabel = 'Maintenance'
+  } else if (isDown) {
+    dotColor = '#f43f5e'
+    dotLabel = 'Down'
+  }
 
   let totalTime = Date.now() / 1000 - state.incident[monitor.id][0].start[0]
   let downTime = 0
@@ -64,20 +75,23 @@ export default function MonitorDetail({
 
   const uptimePercent = (((totalTime - downTime) / totalTime) * 100).toPrecision(4)
 
-  // Conditionally render monitor name with or without hyperlink based on monitor.url presence
   const monitorNameElement = (
-    <Text mt="sm" fw={700} style={{ display: 'inline-flex', alignItems: 'center' }}>
+    <Text mt="sm" fw={700} style={{ display: 'inline-flex', alignItems: 'center', color: '#e2e8f0' }}>
       {monitor.statusPageLink ? (
         <a
           href={monitor.statusPageLink}
           target="_blank"
-          style={{ display: 'inline-flex', alignItems: 'center', color: 'inherit' }}
+          style={{ display: 'inline-flex', alignItems: 'center', color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#00f0ff')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'inherit')}
         >
-          {statusIcon} {monitor.name}
+          <StatusDot color={dotColor} label={dotLabel} />
+          {monitor.name}
         </a>
       ) : (
         <>
-          {statusIcon} {monitor.name}
+          <StatusDot color={dotColor} label={dotLabel} />
+          {monitor.name}
         </>
       )}
     </Text>
@@ -85,14 +99,24 @@ export default function MonitorDetail({
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {monitor.tooltip ? (
           <Tooltip label={monitor.tooltip}>{monitorNameElement}</Tooltip>
         ) : (
           monitorNameElement
         )}
 
-        <Text mt="sm" fw={700} style={{ display: 'inline', color: getColor(uptimePercent, true) }}>
+        <Text
+          mt="sm"
+          fw={700}
+          style={{
+            display: 'inline',
+            fontFamily: 'JetBrains Mono, monospace',
+            fontSize: '0.85rem',
+            color: getColor(uptimePercent, true),
+            textShadow: `0 0 8px ${getColor(uptimePercent, false)}40`,
+          }}
+        >
           {t('Overall', { percent: uptimePercent })}
         </Text>
       </div>

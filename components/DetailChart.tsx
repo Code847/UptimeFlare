@@ -40,15 +40,22 @@ export default function DetailChart({
     loc: point.loc,
   }))
 
-  let data = {
+  // Create gradient-like effect via segment coloring
+  const data = {
     datasets: [
       {
         data: latencyData,
-        borderColor: 'rgb(112, 119, 140)',
+        borderColor: 'rgba(0, 240, 255, 0.8)',
         borderWidth: 2,
         radius: 0,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        pointHoverBackgroundColor: '#00f0ff',
+        pointHoverBorderColor: '#00f0ff',
         cubicInterpolationMode: 'monotone' as const,
         tension: 0.4,
+        fill: true,
+        backgroundColor: 'rgba(0, 240, 255, 0.05)',
       },
     ],
   }
@@ -85,10 +92,33 @@ export default function DetailChart({
     scales: {
       x: {
         type: 'time' as const,
+        grid: {
+          color: 'rgba(0, 240, 255, 0.06)',
+          drawBorder: false,
+        },
         ticks: {
           source: 'auto' as const,
           maxRotation: 0,
           autoSkip: true,
+          color: '#64748b',
+          font: {
+            family: 'JetBrains Mono, monospace',
+            size: 10,
+          },
+        },
+      },
+      y: {
+        grid: {
+          color: 'rgba(0, 240, 255, 0.06)',
+          drawBorder: false,
+        },
+        ticks: {
+          color: '#64748b',
+          font: {
+            family: 'JetBrains Mono, monospace',
+            size: 10,
+          },
+          callback: (value: string) => `${value}ms`,
         },
       },
     },
